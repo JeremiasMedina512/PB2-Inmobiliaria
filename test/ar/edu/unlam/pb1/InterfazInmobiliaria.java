@@ -200,7 +200,7 @@ public class InterfazInmobiliaria {
 		dni = teclado.nextLong();
 		System.out.println("Ingrese nombre");
 		nombre = teclado.next();
-		cliente = new Cliente(dni, nombre);
+		cliente = new Cliente(dni, nombre, nombre);
 		return inmobiliaria.addCliente(cliente);
 	}
 
