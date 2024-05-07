@@ -1,10 +1,7 @@
 package ar.edu.unlam.pb1;
 
 import static org.junit.Assert.*;
-
-import java.util.Scanner;
-
-import ar.edu.unlam.pb1.*;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -23,7 +20,7 @@ public class InmobiliariaTest {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		casa = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 
-		resultadoEsperado = inmobiliaria.addCasa(casa);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(casa);
 
 		assertTrue(resultadoEsperado);
 
@@ -39,8 +36,8 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		casaB = new Casa(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 
-		inmobiliaria.addCasa(casaA);
-		resultadoEsperado = inmobiliaria.addCasa(casaB);
+		inmobiliaria.agregarPropiedad(casaA);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(casaB);
 
 		assertTrue(resultadoEsperado);
 
@@ -56,8 +53,8 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		casaB = new Casa(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 
-		inmobiliaria.addCasa(casaA);
-		resultadoEsperado = inmobiliaria.addCasa(casaB);
+		inmobiliaria.agregarPropiedad(casaA);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(casaB);
 
 		assertFalse(resultadoEsperado);
 
@@ -69,9 +66,9 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamento = new Departamento(1, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
+		departamento = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
 
-		resultadoEsperado = inmobiliaria.addDepartamento(departamento);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(departamento);
 
 		assertTrue(resultadoEsperado);
 
@@ -84,11 +81,11 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-		departamentoB = new Departamento(1, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-
-		inmobiliaria.addDepartamento(departamentoA);
-		resultadoEsperado = inmobiliaria.addDepartamento(departamentoB);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron",500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,2);
+		
+		inmobiliaria.agregarPropiedad(departamentoA);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
 
 		assertTrue(resultadoEsperado);
 	}
@@ -101,11 +98,11 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
 
-		inmobiliaria.addDepartamento(departamentoA);
-		resultadoEsperado = inmobiliaria.addDepartamento(departamentoB);
+		inmobiliaria.agregarPropiedad(departamentoA);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
 
 		assertFalse(resultadoEsperado);
 	}
@@ -121,9 +118,9 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		casaB = new Casa(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.VENTA);
 		casaC = new Casa(3, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.VENTA);
-		inmobiliaria.addCasa(casaA);
-		inmobiliaria.addCasa(casaB);
-		inmobiliaria.addCasa(casaC);
+		inmobiliaria.agregarPropiedad(casaA);
+		inmobiliaria.agregarPropiedad(casaB);
+		inmobiliaria.agregarPropiedad(casaC);
 		resultadoEsperado = 500.0;
 
 		assertEquals(resultadoEsperado, inmobiliaria.calcularElPromedioDeLasCasas(), 0.01);
@@ -138,12 +135,12 @@ public class InmobiliariaTest {
 		Double resultadoEsperado = 0.0;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-		departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-		departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia", 1, 1, 500.0, TipoDeOperacion.ALQUILER);
-		inmobiliaria.addDepartamento(departamentoA);
-		inmobiliaria.addDepartamento(departamentoB);
-		inmobiliaria.addDepartamento(departamentoC);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron",500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela",500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,1);
+		inmobiliaria.agregarPropiedad(departamentoA);
+		inmobiliaria.agregarPropiedad(departamentoB);
+		inmobiliaria.agregarPropiedad(departamentoC);
 		resultadoEsperado = 500.0;
 
 		assertEquals(resultadoEsperado, inmobiliaria.calcularElPromedioDeLosDepartamentos(), 0.01);
@@ -162,9 +159,9 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		casaB = new Casa(2, "Cordero", 123, "Ciudadela", 1000.0, TipoDeOperacion.VENTA);
 		casaC = new Casa(3, "Cordero", 123, "San Justo", 2000.0, TipoDeOperacion.VENTA);
-		inmobiliaria.addCasa(casaA);
-		inmobiliaria.addCasa(casaB);
-		inmobiliaria.addCasa(casaC);
+		inmobiliaria.agregarPropiedad(casaA);
+		inmobiliaria.agregarPropiedad(casaB);
+		inmobiliaria.agregarPropiedad(casaC);
 		casasEnElRango = inmobiliaria.rangoDePreciosDeCasas(minimo, maximo);
 		System.out.println(casasEnElRango);
 		for (Casa i : casasEnElRango) {
@@ -183,7 +180,7 @@ public class InmobiliariaTest {
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		casa = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		cliente = new Cliente(dni, "Jeremias", "Medina");
-		inmobiliaria.addCasa(casa);
+		inmobiliaria.agregarPropiedad(casa);
 		inmobiliaria.addCliente(cliente);
 		assertTrue(cliente.comprarCasa(casa));
 
@@ -200,8 +197,8 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 		casaB = new Casa(2, "Rosas", 123, "Ciudadela", 511.0, TipoDeOperacion.VENTA);
 		cliente = new Cliente(dni, "Jeremias", "Medina");
-		inmobiliaria.addCasa(casaA);
-		inmobiliaria.addCasa(casaB);
+		inmobiliaria.agregarPropiedad(casaA);
+		inmobiliaria.agregarPropiedad(casaB);
 		inmobiliaria.addCliente(cliente);
 		cliente.comprarCasa(casaA);
 		cliente.comprarCasa(casaB);
@@ -225,7 +222,7 @@ public class InmobiliariaTest {
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER);
 //		casaB = new Casa(2,"Rosas", 123,"Ciudadela",511.0, TipoDeOperacion.VENTA);
 		cliente = new Cliente(dni, "Jeremias", "Medina");
-		inmobiliaria.addCasa(casaA);
+		inmobiliaria.agregarPropiedad(casaA);
 		inmobiliaria.addCliente(cliente);
 		cliente.comprarCasa(casaA);
 		assertFalse(cliente.comprarCasa(casaA));
@@ -246,8 +243,8 @@ public class InmobiliariaTest {
 		casaB = new Casa(2, "Rosas", 123, "Ciudadela", 511.0, TipoDeOperacion.VENTA);
 		clienteA = new Cliente(dniA, "Jeremias", "Medina");
 		clienteB = new Cliente(dniB, "Alex", "Gutierrez");
-		inmobiliaria.addCasa(casaA);
-		inmobiliaria.addCasa(casaB);
+		inmobiliaria.agregarPropiedad(casaA);
+		inmobiliaria.agregarPropiedad(casaB);
 		inmobiliaria.addCliente(clienteA);
 		inmobiliaria.addCliente(clienteB);
 		clienteA.comprarCasa(casaA);
@@ -285,6 +282,41 @@ public class InmobiliariaTest {
 		tamañoDelArrayReal = inmobiliaria.getClientes().size();
 		assertEquals(tamañoEsperado, tamañoDelArrayReal);
 	}
+	
+	@Test
+	public void queSePuedanMostrarLosDepartamentosOrdenadosPorUbicacion(){
+		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,1);
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
+
+		inmobiliaria.agregarPropiedad(departamentoA);
+		inmobiliaria.agregarPropiedad(departamentoB);
+		inmobiliaria.agregarPropiedad(departamentoC);
+		
+		inmobiliaria.ordenarDepartamentosPorUbicacion();
+		
+		
+		ArrayList<Departamento> departamentos = inmobiliaria.getDepartamentos();
+		
+		departamentos.add(departamentoA);
+		departamentos.add(departamentoB);
+		departamentos.add(departamentoC);
+		
+		System.out.println(departamentos);
+		
+		for(int i =0; i< departamentos.size(); i++) {
+			System.out.println(departamentos.get(i).getCiudad());
+		}
+		for(Departamento i: departamentos) {
+			System.out.println(i.getCiudad());
+		}
+		
+		assertFalse(true);
+		
+
+	}
+
 
 }
 

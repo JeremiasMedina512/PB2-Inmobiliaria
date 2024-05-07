@@ -16,12 +16,6 @@ public class Inmobiliaria {
 	private ArrayList<Campo> campos;
 	private ArrayList<Terreno> terrenos;
 	private HashSet<Cliente> clientes;
-//	private Casa casas[];
-//	private Departamento departamentos[];
-//	private Ph phs[];
-//	private Terreno terrenos[];
-//	private Campo campos[];
-//	private Cliente clientes[];
 	private Venta ventas[];
 	private final Integer CANTIDAD_MAXIMA_DE_PROPIEDADES = 100;
 	private final Integer CANTIDAD_MAXIMA_DE_CLIENTES = 3;
@@ -32,11 +26,6 @@ public class Inmobiliaria {
 		this.direccion = direccion;
 		this.email = email;
 		this.telefono = telefono;
-//		this.propiedades = new Propiedad[CANTIDAD_MAXIMA_DE_PROPIEDADES];
-//		this.casas = new Casa[CANTIDAD_MAXIMA_DE_PROPIEDADES];
-//		this.departamentos = new Departamento[CANTIDAD_MAXIMA_DE_PROPIEDADES];
-//		this.clientes = new ArrayList[CANTIDAD_MAXIMA_DE_CLIENTES];
-//		this.ventas = new Venta[this.CANTIDAD_MAXIMA_DE_VENTAS];
 		this.clientes = new HashSet<>();
 		this.casas = new ArrayList<>();
 		this.departamentos = new ArrayList<>();
@@ -45,18 +34,17 @@ public class Inmobiliaria {
 		this.terrenos = new ArrayList<>();
 	}
 
-	public Boolean addCasa(Casa casaNueva) {
-		if (!existeCasa(casaNueva)) {
-			for (int i = 0; i < casas.size(); i++) {
-				if (this.casas.get(i) == null) {
-					return this.casas.add(casaNueva);
-				}
-			}
+	public Boolean agregarPropiedad(Casa casaNueva) {
+		Boolean resultadoAgregacion = false;
+		if (this.casas.size() == 0) {
+			return this.casas.add(casaNueva);
+		} else if (!existePropiedad(casaNueva)) {
+			resultadoAgregacion = this.casas.add(casaNueva);
 		}
-		return false;
+		return resultadoAgregacion;
 	}
 
-	public Boolean existeCasa(Casa casaABuscar) {
+	public Boolean existePropiedad(Casa casaABuscar) {
 		for (int i = 0; i < this.casas.size(); i++) {
 			if (this.casas.get(i) != null) {
 				if (this.casas.get(i).equals(casaABuscar)) {
@@ -67,18 +55,18 @@ public class Inmobiliaria {
 		return false;
 	}
 
-	public Boolean addDepartamento(Departamento nuevoDepartamento) {
-		if (!existeDepartamento(nuevoDepartamento)) {
-			for (int i = 0; i < this.departamentos.size(); i++) {
-				if (this.departamentos.get(i) == null) {
-					return this.departamentos.add(nuevoDepartamento);
-				}
-			}
+	public Boolean agregarPropiedad(Departamento nuevoDepartamento) {
+		Boolean resultadoAgregacion = false;
+		if (this.departamentos.size() == 0) {
+			return this.departamentos.add(nuevoDepartamento);
+		} else if (!existePropiedad(nuevoDepartamento)) {
+			resultadoAgregacion = this.departamentos.add(nuevoDepartamento);
+
 		}
-		return false;
+		return resultadoAgregacion;
 	}
 
-	public Boolean existeDepartamento(Departamento departamentoABuscar) {
+	public Boolean existePropiedad(Departamento departamentoABuscar) {
 		for (int i = 0; i < this.departamentos.size(); i++) {
 			if (this.departamentos.get(i) != null) {
 				if (this.departamentos.get(i).equals(departamentoABuscar)) {
@@ -89,19 +77,21 @@ public class Inmobiliaria {
 		return false;
 	}
 
-	public Boolean addPh(Ph nuevoPh) {
-		if (existePh(nuevoPh)) {
-			for (int i = 0; i < this.phs.size(); i++) {
+	public Boolean agregarPropiedad(Ph nuevoPh) {
+		if (this.phs.size() == 0) {
+			this.phs.add(nuevoPh);
+			return true;
+		} else if (!existePropiedad(nuevoPh)) {
+			for (int i = 0; i < phs.size(); i++) {
 				if (this.phs.get(i) == null) {
 					return this.phs.add(nuevoPh);
 				}
 			}
 		}
-
 		return false;
 	}
 
-	public Boolean existePh(Ph phABuscar) {
+	public Boolean existePropiedad(Ph phABuscar) {
 		for (int i = 0; i < this.phs.size(); i++) {
 			if (this.phs.get(i) != null) {
 				if (this.phs.get(i).equals(phABuscar)) {
@@ -112,17 +102,20 @@ public class Inmobiliaria {
 		return false;
 	}
 
-	public Boolean addCampo(Campo nuevoCampo) {
-		for (int i = 0; i < this.campos.size(); i++) {
-			if (this.campos.get(i) == null) {
-				this.campos.add(nuevoCampo);
-				return true;
+	public Boolean agregarPropiedad(Campo nuevoCampo) {
+		if (this.campos.size() == 0) {
+			return this.campos.add(nuevoCampo);
+		} else if (!existePropiedad(nuevoCampo)) {
+			for (int i = 0; i < campos.size(); i++) {
+				if (this.campos.get(i) == null) {
+					return this.campos.add(nuevoCampo);
+				}
 			}
 		}
-		return null;
+		return false;
 	}
 
-	public Boolean existeCampo(Campo campoABuscar) {
+	public Boolean existePropiedad(Campo campoABuscar) {
 		for (int i = 0; i < this.phs.size(); i++) {
 			if (this.campos.get(i) != null) {
 				if (this.campos.get(i).equals(campoABuscar)) {
@@ -133,17 +126,20 @@ public class Inmobiliaria {
 		return false;
 	}
 
-	public Boolean addTerreno(Terreno nuevoTerreno) {
-		for (int i = 0; i < this.terrenos.size(); i++) {
-			if (this.terrenos.get(i) == null) {
-				this.terrenos.add(nuevoTerreno);
-				return true;
+	public Boolean agregarPropiedad(Terreno nuevoTerreno) {
+		if (this.terrenos.size() == 0) {
+			return this.terrenos.add(nuevoTerreno);
+		} else if (!existePropiedad(nuevoTerreno)) {
+			for (int i = 0; i < terrenos.size(); i++) {
+				if (this.terrenos.get(i) == null) {
+					return this.terrenos.add(nuevoTerreno);
+				}
 			}
 		}
-		return null;
+		return false;
 	}
 
-	public Boolean existeTerreno(Terreno terrenoABuscar) {
+	public Boolean existePropiedad(Terreno terrenoABuscar) {
 		for (int i = 0; i < this.terrenos.size(); i++) {
 			if (this.terrenos.get(i) != null) {
 				if (this.terrenos.get(i).equals(terrenoABuscar)) {
@@ -177,8 +173,6 @@ public class Inmobiliaria {
 		}
 		return false;
 	}
-
-//	Cambiar a arrayList
 
 	public Boolean buscarClientePorDni(Long clienteDni) {
 		Cliente clienteABuscar = new Cliente(clienteDni);
@@ -218,7 +212,6 @@ public class Inmobiliaria {
 	public Boolean addCliente(Cliente cliente) {
 		return this.clientes.add(cliente);
 	}
-	
 
 	public void obtenerListadoDePropiedadesPorPrecio() {
 		Double[] preciosDeCasasYDepartamentos = new Double[this.CANTIDAD_MAXIMA_DE_PROPIEDADES * 2];
@@ -333,25 +326,24 @@ public class Inmobiliaria {
 
 //	VER	
 	public void ordenarDepartamentosPorUbicacion() {
-		for (int i = 0; i < this.departamentos.size(); i++) {
-			for (int j = 0; j < this.departamentos.size(); j++) {
-				if (this.departamentos.get(j).getCiudad().compareTo(this.departamentos.get(i).getCiudad()) > 0) {
-					Departamento temp = this.departamentos[j];
-					this.departamentos[j] = this.departamentos[j + 1];
-					this.departamentos[j + 1] = temp;
-				}
 
-			}
-		}
-		for (Departamento i : this.departamentos) {
-			System.out.println(i);
-		}
-	}
-
-
-
-	public Integer getCANTIDAD_MAXIMA_DE_PROPIEDADES() {
-		return CANTIDAD_MAXIMA_DE_PROPIEDADES;
+//		String primerDepa = this.departamentos.get(0).getCiudad();
+//		String segundoDepa = this.departamentos.get(1).getCiudad();
+//		Integer resultado = primerDepa
+//		
+//		for (int i = 0; i < this.departamentos.size(); i++) {
+//			for (int j = 0; j < this.departamentos.size(); j++) {
+//				if (this.departamentos.get(j).getCiudad().compareTo(this.departamentos.get(i).getCiudad()) > 0) {
+//					Departamento temp = this.departamentos[j];
+//					this.departamentos[j] = this.departamentos[j + 1];
+//					this.departamentos[j + 1] = temp;
+//				}
+//
+//			}
+//		}
+//		for (Departamento i : this.departamentos) {
+//			System.out.println(i);
+//		}
 	}
 
 	public Casa[] rangoDePreciosDeCasas(Double minimo, Double maximo) {
@@ -368,9 +360,10 @@ public class Inmobiliaria {
 		}
 		return casasDentroDelRango;
 	}
-	
-	public Boolean permutarCasaEntreClientes(Cliente clienteA, Cliente clienteB, Casa casaDelClienteA, Casa casaDelClienteB) {
-		if(clienteA.getPoseePropiedadParaPermutar() && clienteB.getPoseePropiedadParaPermutar()) {
+
+	public Boolean permutarCasaEntreClientes(Cliente clienteA, Cliente clienteB, Casa casaDelClienteA,
+			Casa casaDelClienteB) {
+		if (clienteA.getPoseePropiedadParaPermutar() && clienteB.getPoseePropiedadParaPermutar()) {
 			clienteA.getCasasCompradas().remove(casaDelClienteA);
 			clienteB.getCasasCompradas().remove(casaDelClienteB);
 			clienteA.comprarCasa(casaDelClienteB);
@@ -416,6 +409,10 @@ public class Inmobiliaria {
 		return CANTIDAD_MAXIMA_DE_CLIENTES;
 	}
 
+	public Integer getCANTIDAD_MAXIMA_DE_PROPIEDADES() {
+		return CANTIDAD_MAXIMA_DE_PROPIEDADES;
+	}
+
 	public Integer getCANTIDAD_MAXIMA_DE_VENTAS() {
 		return CANTIDAD_MAXIMA_DE_VENTAS;
 	}
@@ -429,7 +426,7 @@ public class Inmobiliaria {
 	}
 
 	public ArrayList<Departamento> getDepartamentos() {
-		return departamentos;
+		return this.departamentos;
 	}
 
 	public void setDepartamentos(ArrayList<Departamento> departamentos) {
@@ -475,11 +472,5 @@ public class Inmobiliaria {
 	public void setVentas(Venta[] ventas) {
 		this.ventas = ventas;
 	}
-	
-	
-
-	
-	
-	
 
 }
