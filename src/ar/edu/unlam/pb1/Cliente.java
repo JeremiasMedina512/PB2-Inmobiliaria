@@ -35,7 +35,10 @@ public class Cliente {
 		this.camposComprados = new ArrayList<>();
 		this.terrenosAlquilados = new ArrayList<>();
 		this.terrenosComprados = new ArrayList<>();
-
+	}
+	
+	public Cliente(Long dni) {
+		this.dni = dni;
 	}
 
 	public Boolean comprarCasa(Casa casaAComprar) {

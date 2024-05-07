@@ -181,9 +181,10 @@ public class Inmobiliaria {
 //	Cambiar a arrayList
 
 	public Boolean buscarClientePorDni(Long clienteDni) {
+		Cliente clienteABuscar = new Cliente(clienteDni);
 		for (int i = 0; i < this.clientes.size(); i++) {
 			if (this.clientes != null) {
-				if (this.clientesgetDni().equals(clienteDni)) {
+				if (this.clientes.contains(clienteABuscar)) {
 					return true;
 				}
 			}
