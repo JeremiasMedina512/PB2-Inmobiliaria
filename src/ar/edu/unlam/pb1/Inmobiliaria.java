@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class Inmobiliaria {
+public class Inmobiliaria  {
 
 	private String nombre;
 	private String direccion;
@@ -250,6 +250,7 @@ public class Inmobiliaria {
 	}
 
 	public Double calcularElPromedioDeLasCasas() {
+		Propiedad propiedad = new Propiedad();
 		Double acumuladorDePrecioDeCasas = 0.0;
 		Double contador = 0.0;
 		for (int i = 0; i < this.casas.size(); i++) {
@@ -259,6 +260,7 @@ public class Inmobiliaria {
 			}
 		}
 		return acumuladorDePrecioDeCasas / contador;
+
 	}
 
 	public Double calcularElPromedioDeLosDepartamentos() {
@@ -326,23 +328,23 @@ public class Inmobiliaria {
 
 //	VER	
 	public void ordenarDepartamentosPorUbicacion() {
-
-//		String primerDepa = this.departamentos.get(0).getCiudad();
-//		String segundoDepa = this.departamentos.get(1).getCiudad();
-//		Integer resultado = primerDepa
-//		
+		LinkedList<Departamento> departamentos = new LinkedList<Departamento>();
+		departamentos.addAll(this.departamentos);
+		for(Departamento i: departamentos) {
+			System.out.println(i.getCodigo() + ", "+ i.getCiudad());
+		}
 //		for (int i = 0; i < this.departamentos.size(); i++) {
-//			for (int j = 0; j < this.departamentos.size(); j++) {
-//				if (this.departamentos.get(j).getCiudad().compareTo(this.departamentos.get(i).getCiudad()) > 0) {
-//					Departamento temp = this.departamentos[j];
-//					this.departamentos[j] = this.departamentos[j + 1];
-//					this.departamentos[j + 1] = temp;
+//
+//			for (int j = this.departamentos.size() - 1; this.depa; j--) {
+//				if (departamentos.get(i).compareTo(this.departamentos.get(j))) {
+//
+//					int tmp = departamentos.get(i);
+//					this.departamentos.get(i) = departamentos.get(i);
+//					departamentos.get(j) = tmp;
+//
 //				}
 //
 //			}
-//		}
-//		for (Departamento i : this.departamentos) {
-//			System.out.println(i);
 //		}
 	}
 
@@ -472,5 +474,8 @@ public class Inmobiliaria {
 	public void setVentas(Venta[] ventas) {
 		this.ventas = ventas;
 	}
+
+
+
 
 }

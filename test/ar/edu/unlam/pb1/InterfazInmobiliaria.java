@@ -151,7 +151,7 @@ public class InterfazInmobiliaria {
 		switch (teclado.nextInt()) {
 		case 1:
 			nuevaCasa = new Casa(codigo, calle, numero, ciudad, precio, tipoDeOperacion);
-			resultadoOperacion = inmobiliaria.addCasa(nuevaCasa);
+			resultadoOperacion = inmobiliaria.agregarPropiedad(nuevaCasa);
 			break;
 		case 2:
 			Integer piso, departamento;

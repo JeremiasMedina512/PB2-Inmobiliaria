@@ -1,14 +1,17 @@
 package ar.edu.unlam.pb1;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Propiedad {
 	
 	protected Integer codigo;
-	private String calle;
-	private Integer numero;
+	protected String calle;
+	protected Integer numero;
 	protected String ciudad;
-	private Double precio;
-	private Boolean estaDisponible;
-	private TipoDeOperacion tipoDeOperacion;
+	protected Double precio;
+	protected Boolean estaDisponible;
+	protected TipoDeOperacion tipoDeOperacion;
 	
 	public Propiedad(Integer codigo, String calle, Integer numero, String ciudad, Double precio,
 			TipoDeOperacion tipoDeOperacion) {
@@ -20,7 +23,24 @@ public class Propiedad {
 		this.estaDisponible = true;
 		this.tipoDeOperacion = tipoDeOperacion;
 	}
+	
+	public Propiedad() {
+		
+	}
+	
+	public Propiedad[] buscarPorRangoDePrecio(Integer minimo, Integer maximo) {
+		
+		return null;
+	}
+	
+	public Double calcularPromedio(ArrayList<Casa> casa) {
+	
+		return null;
+	}
 
+	public Double calcularPromedio(Departamento departamento) {
+		return 0.0;
+	}
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -77,6 +97,33 @@ public class Propiedad {
 	public void setTipoDeOperacion(TipoDeOperacion tipoDeOperacion) {
 		this.tipoDeOperacion = tipoDeOperacion;
 	}
+	
+	
+
+//	Abstract ?
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(calle, ciudad, numero);
+//	}
+//
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Propiedad other = (Propiedad) obj;
+//		return Objects.equals(calle, other.calle) && Objects.equals(ciudad, other.ciudad)
+//				&& Objects.equals(numero, other.numero);
+//	}
+	
+	
+
+
+	
 	
 	
 	

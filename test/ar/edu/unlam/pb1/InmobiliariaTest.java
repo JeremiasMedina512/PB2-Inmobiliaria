@@ -2,6 +2,9 @@ package ar.edu.unlam.pb1;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -51,7 +54,7 @@ public class InmobiliariaTest {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
-		casaB = new Casa(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
+		casaB = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
 
 		inmobiliaria.agregarPropiedad(casaA);
 		resultadoEsperado = inmobiliaria.agregarPropiedad(casaB);
@@ -99,7 +102,7 @@ public class InmobiliariaTest {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoB = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
 
 		inmobiliaria.agregarPropiedad(departamentoA);
 		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
@@ -167,7 +170,7 @@ public class InmobiliariaTest {
 		for (Casa i : casasEnElRango) {
 			System.out.println(i);
 		}
-		assertNotNull(casasEnElRango);
+		assertNotNull(null);
 
 	}
 
@@ -285,32 +288,26 @@ public class InmobiliariaTest {
 	
 	@Test
 	public void queSePuedanMostrarLosDepartamentosOrdenadosPorUbicacion(){
+		LinkedList<Departamento> departamentos = new LinkedList<Departamento>();
 		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,1);
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,1,2);
+		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,3);
+		Departamento departamentoD = new Departamento(4, "Cordero", 123, "Liniers",500.0, TipoDeOperacion.ALQUILER,1,4);
+		Departamento departamentoE = new Departamento(4, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,4);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-
 		inmobiliaria.agregarPropiedad(departamentoA);
 		inmobiliaria.agregarPropiedad(departamentoB);
 		inmobiliaria.agregarPropiedad(departamentoC);
+		inmobiliaria.agregarPropiedad(departamentoD);	
+		inmobiliaria.agregarPropiedad(departamentoE);
+
+
 		
 		inmobiliaria.ordenarDepartamentosPorUbicacion();
 		
 		
-		ArrayList<Departamento> departamentos = inmobiliaria.getDepartamentos();
 		
-		departamentos.add(departamentoA);
-		departamentos.add(departamentoB);
-		departamentos.add(departamentoC);
 		
-		System.out.println(departamentos);
-		
-		for(int i =0; i< departamentos.size(); i++) {
-			System.out.println(departamentos.get(i).getCiudad());
-		}
-		for(Departamento i: departamentos) {
-			System.out.println(i.getCiudad());
-		}
 		
 		assertFalse(true);
 		
