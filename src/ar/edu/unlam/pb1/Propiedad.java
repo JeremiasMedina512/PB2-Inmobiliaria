@@ -97,28 +97,26 @@ public class Propiedad {
 	public void setTipoDeOperacion(TipoDeOperacion tipoDeOperacion) {
 		this.tipoDeOperacion = tipoDeOperacion;
 	}
-	
-	
 
-//	Abstract ?
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(calle, ciudad, numero);
-//	}
-//
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Propiedad other = (Propiedad) obj;
-//		return Objects.equals(calle, other.calle) && Objects.equals(ciudad, other.ciudad)
-//				&& Objects.equals(numero, other.numero);
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(calle, ciudad, numero);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Propiedad other = (Propiedad) obj;
+		return Objects.equals(calle, other.calle) && Objects.equals(ciudad, other.ciudad)
+				&& Objects.equals(numero, other.numero);
+	}
+	
+	
 	
 	
 

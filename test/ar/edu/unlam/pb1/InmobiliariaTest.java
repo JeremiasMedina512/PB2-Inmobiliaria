@@ -85,7 +85,7 @@ public class InmobiliariaTest {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		departamentoA = new Departamento(1, "Cordero", 123, "Moron",500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,2);
+		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,3);
 		
 		inmobiliaria.agregarPropiedad(departamentoA);
 		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
@@ -98,14 +98,24 @@ public class InmobiliariaTest {
 		// calle, numero, piso, departamento y localidad.
 		Departamento departamentoA = null;
 		Departamento departamentoB = null;
+		Departamento departamentoC = null;
+		Departamento departamentoD = null;
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoB = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoC = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoD = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,2);
 
+		System.out.println(departamentoA.equals(departamentoB));
+		System.out.println(departamentoB.equals(departamentoC));
+		System.out.println(departamentoB.equals(departamentoD));
+		
+		
 		inmobiliaria.agregarPropiedad(departamentoA);
-		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
+		inmobiliaria.agregarPropiedad(departamentoB);
+		resultadoEsperado=inmobiliaria.agregarPropiedad(departamentoC);
 
 		assertFalse(resultadoEsperado);
 	}
@@ -288,7 +298,6 @@ public class InmobiliariaTest {
 	
 	@Test
 	public void queSePuedanMostrarLosDepartamentosOrdenadosPorUbicacion(){
-		LinkedList<Departamento> departamentos = new LinkedList<Departamento>();
 		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
 		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,1,2);
 		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,3);
@@ -299,19 +308,8 @@ public class InmobiliariaTest {
 		inmobiliaria.agregarPropiedad(departamentoB);
 		inmobiliaria.agregarPropiedad(departamentoC);
 		inmobiliaria.agregarPropiedad(departamentoD);	
-		inmobiliaria.agregarPropiedad(departamentoE);
-
-
-		
-		inmobiliaria.ordenarDepartamentosPorUbicacion();
-		
-		
-		
-		
-		
-		assertFalse(true);
-		
-
+		inmobiliaria.agregarPropiedad(departamentoE);		
+		assertNotNull(inmobiliaria.ordenarDepartamentosPorUbicacion());
 	}
 
 

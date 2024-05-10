@@ -10,12 +10,12 @@ public class Prueba {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Integer contador = 0;
-		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Banana", 500.0, TipoDeOperacion.ALQUILER, 1,
+		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER, 1,
 				1);
-		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Pera", 500.0, TipoDeOperacion.ALQUILER, 1, 2);
-		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Manzana", 500.0, TipoDeOperacion.ALQUILER, 1,
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER, 1, 2);
+		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1,
 				3);
-		Departamento departamentoD = new Departamento(3, "Cordero", 123, "Manzana", 500.0, TipoDeOperacion.ALQUILER, 1,
+		Departamento departamentoD = new Departamento(3, "Cordero", 123, "Merlo", 500.0, TipoDeOperacion.ALQUILER, 1,
 				3);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		inmobiliaria.agregarPropiedad(departamentoA);
@@ -24,13 +24,18 @@ public class Prueba {
 		inmobiliaria.agregarPropiedad(departamentoD);
 		inmobiliaria.agregarPropiedad(departamentoD);
 		ArrayList<Departamento> depasA = new ArrayList<Departamento>();
+		ArrayList<Departamento> depasACopia = new ArrayList<Departamento>();
 		LinkedList<Departamento> depasB = new LinkedList<Departamento>();
 		HashSet<Departamento> depasC = new HashSet<Departamento>();
 		TreeSet<Departamento> depasD = new TreeSet<>();
 
 		depasA = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasA);
 		depasA.add(departamentoD);
+//		depasACopia = (ArrayList<Departamento>) depasA.clone();
+		depasACopia.addAll(depasA);
 		mostrarDepartamentos(depasA);
+		System.out.println("Copia");
+		mostrarDepartamentos(depasACopia);
 		
 		depasB = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasB);
 		mostrarDepartamentos(depasB);

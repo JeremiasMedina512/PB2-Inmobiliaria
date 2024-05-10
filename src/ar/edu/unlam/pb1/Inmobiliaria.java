@@ -3,6 +3,7 @@ package ar.edu.unlam.pb1;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.TreeSet;
 
 public class Inmobiliaria  {
 
@@ -12,6 +13,7 @@ public class Inmobiliaria  {
 	private String telefono;
 	private ArrayList<Casa> casas;
 	private ArrayList<Departamento> departamentos;
+	private TreeSet<Departamento> departamentosOrdenados;
 	private ArrayList<Ph> phs;
 	private ArrayList<Campo> campos;
 	private ArrayList<Terreno> terrenos;
@@ -32,6 +34,7 @@ public class Inmobiliaria  {
 		this.phs = new ArrayList<>();
 		this.campos = new ArrayList<>();
 		this.terrenos = new ArrayList<>();
+		this.departamentosOrdenados = new TreeSet<>();
 	}
 
 	public Boolean agregarPropiedad(Casa casaNueva) {
@@ -327,25 +330,12 @@ public class Inmobiliaria  {
 	}
 
 //	VER	
-	public void ordenarDepartamentosPorUbicacion() {
-		LinkedList<Departamento> departamentos = new LinkedList<Departamento>();
-		departamentos.addAll(this.departamentos);
-		for(Departamento i: departamentos) {
-			System.out.println(i.getCodigo() + ", "+ i.getCiudad());
+	public TreeSet<Departamento> ordenarDepartamentosPorUbicacion() {
+		this.departamentosOrdenados.addAll(this.departamentos);
+		for(Departamento i: departamentosOrdenados) {
+			System.out.println(i.getCodigo() + ", "+ i.getCiudad() + ", " + i.getCalle() + " "+ i.getNumero());
 		}
-//		for (int i = 0; i < this.departamentos.size(); i++) {
-//
-//			for (int j = this.departamentos.size() - 1; this.depa; j--) {
-//				if (departamentos.get(i).compareTo(this.departamentos.get(j))) {
-//
-//					int tmp = departamentos.get(i);
-//					this.departamentos.get(i) = departamentos.get(i);
-//					departamentos.get(j) = tmp;
-//
-//				}
-//
-//			}
-//		}
+		return this.departamentosOrdenados;
 	}
 
 	public Casa[] rangoDePreciosDeCasas(Double minimo, Double maximo) {
