@@ -9,10 +9,10 @@ public class Prueba {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Integer contador = 0;
-		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER, 1,
-				1);
-		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER, 1, 2);
+		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER,
+				1, 1);
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,
+				1, 2);
 		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1,
 				3);
 		Departamento departamentoD = new Departamento(3, "Cordero", 123, "Merlo", 500.0, TipoDeOperacion.ALQUILER, 1,
@@ -28,25 +28,52 @@ public class Prueba {
 		LinkedList<Departamento> depasB = new LinkedList<Departamento>();
 		HashSet<Departamento> depasC = new HashSet<Departamento>();
 		TreeSet<Departamento> depasD = new TreeSet<>();
-
 		depasA = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasA);
-		depasA.add(departamentoD);
-//		depasACopia = (ArrayList<Departamento>) depasA.clone();
-		depasACopia.addAll(depasA);
-		mostrarDepartamentos(depasA);
-		System.out.println("Copia");
-		mostrarDepartamentos(depasACopia);
-		
 		depasB = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasB);
-		mostrarDepartamentos(depasB);
-		
 		depasC = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasC);
-		depasC.add(departamentoD);
-		mostrarDepartamentos(depasC);
-
 		depasD = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD, depasD);
-		mostrarDepartamentos(depasD);
 
+		ArrayList<Departamento> arrayDeArrayList = new ArrayList<>();
+		arrayDeArrayList = addDepasArrayList(departamentoA, departamentoB, departamentoC, departamentoD,
+				arrayDeArrayList);
+
+		LinkedList<Departamento> arrayDeLinkedList = new LinkedList<>();
+		arrayDeLinkedList.addAll(arrayDeArrayList);
+//		arrayDeLinkedList.
+
+		System.out.println("------------");
+		System.out.println("ARRAY LIST");
+		mostrarColeccion(arrayDeArrayList);
+
+		System.out.println("\n------------");
+		System.out.println("LINKED LIST");
+		mostrarColeccion(arrayDeLinkedList);
+
+//		depasA.add(departamentoD);
+//		depasACopia.addAll(depasA);
+//		mostrarDepartamentos(depasA);
+//		System.out.println("Copia");
+//		mostrarDepartamentos(depasACopia);
+//		
+//		mostrarDepartamentos(depasB);
+//		
+//		depasC.add(departamentoD);
+//		mostrarDepartamentos(depasC);
+//
+//		mostrarDepartamentos(depasD);
+
+	}
+
+	private static void mostrarColeccion(ArrayList<Departamento> array) {
+		for (Departamento i : array) {
+			System.out.println(i.getCodigo() + ", " + i.getCiudad());
+		}
+	}
+
+	private static void mostrarColeccion(LinkedList<Departamento> array) {
+		for (Departamento i : array) {
+			System.out.println(i.getCodigo() + ", " + i.getCiudad());
+		}
 	}
 
 	private static TreeSet<Departamento> addDepasArrayList(Departamento departamentoA, Departamento departamentoB,
