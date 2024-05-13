@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+
 public class Inmobiliaria {
 
 	private String nombre;
@@ -12,6 +13,7 @@ public class Inmobiliaria {
 	private String email;
 	private String telefono;
 	private ArrayList<Casa> casas;
+	private HashSet<Casa> casasUnicas;
 	private ArrayList<Departamento> departamentos;
 	private TreeSet<Departamento> departamentosOrdenadosPorUbicacion;
 	private HashSet<Departamento> departamentosOrdenadosPorPrecio;
@@ -37,39 +39,33 @@ public class Inmobiliaria {
 		this.terrenos = new ArrayList<>();
 		this.departamentosOrdenadosPorUbicacion = new TreeSet<>();
 		this.departamentosOrdenadosPorPrecio = new HashSet<>();
+		this.casasUnicas = new HashSet<>();
 	}
-
+	
 	public Boolean agregarPropiedad(Casa casaNueva) {
-		Boolean resultadoAgregacion = false;
-		if (this.casas.size() == 0) {
-			return this.casas.add(casaNueva);
-		} else if (existePropiedad(casaNueva)) {
-			resultadoAgregacion = this.casas.add(casaNueva);
-		}
-		return resultadoAgregacion;
+		return this.casasUnicas.add(casaNueva);
 	}
 
-//	public Boolean agregarPropiedad(Departamento nuevoDepartamento) {
+//	public Boolean agregarPropiedad(Casa casaNueva) {
 //		Boolean resultadoAgregacion = false;
-//		if (this.departamentos.size() == 0) {
-//			return this.departamentos.add(nuevoDepartamento);
-//		} else if (!existePropiedad(nuevoDepartamento)) {
-//			resultadoAgregacion = this.departamentos.add(nuevoDepartamento);
-//
+//		if (this.casas.size() == 0) {
+//			return this.casas.add(casaNueva);
+//		} else if (existePropiedad(casaNueva)) {
+//			resultadoAgregacion = this.casas.add(casaNueva);
 //		}
 //		return resultadoAgregacion;
 //	}
-
-	public Boolean existePropiedad(Casa casaABuscar) {
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (this.casas.get(i).equals(casaABuscar)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+//
+//	public Boolean existePropiedad(Casa casaABuscar) {
+//		for (int i = 0; i < this.casas.size(); i++) {
+//			if (this.casas.get(i) != null) {
+//				if (this.casas.get(i).equals(casaABuscar)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	public Boolean agregarPropiedad(Departamento nuevoDepartamento) {
 		Boolean resultadoAgregacion = false;
@@ -229,44 +225,7 @@ public class Inmobiliaria {
 		return this.clientes.add(cliente);
 	}
 
-	public void obtenerListadoDePropiedadesPorPrecio() {
-		Double[] preciosDeCasasYDepartamentos = new Double[this.CANTIDAD_MAXIMA_DE_PROPIEDADES * 2];
-		Integer contadorPrecios = 0;
-		for (int i = 0; i < this.departamentos.size(); i++) {
-			if (this.departamentos.get(i) != null) {
-				preciosDeCasasYDepartamentos[contadorPrecios] = this.departamentos.get(i).getPrecio();
-				contadorPrecios++;
-			}
-		}
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				preciosDeCasasYDepartamentos[contadorPrecios] = this.casas.get(i).getPrecio();
-				contadorPrecios++;
-			}
-		}
-
-		for (int i = 0; i < preciosDeCasasYDepartamentos.length; i++) {
-			for (int j = 0; j < contadorPrecios - 1; j++) {
-				Double temporalMayor = null;
-				if (preciosDeCasasYDepartamentos[j] > preciosDeCasasYDepartamentos[j + 1]) {
-					temporalMayor = preciosDeCasasYDepartamentos[j];
-					preciosDeCasasYDepartamentos[j] = preciosDeCasasYDepartamentos[j + 1];
-					preciosDeCasasYDepartamentos[j + 1] = temporalMayor;
-				}
-			}
-		}
-
-		for (int i = 0; i < preciosDeCasasYDepartamentos.length; i++) {
-			if (preciosDeCasasYDepartamentos[i] != null) {
-				System.out.println(preciosDeCasasYDepartamentos[i]);
-
-			}
-		}
-
-	}
-
 	public Double calcularElPromedioDeLasCasas() {
-		Propiedad propiedad = new Propiedad();
 		Double acumuladorDePrecioDeCasas = 0.0;
 		Double contador = 0.0;
 		for (int i = 0; i < this.casas.size(); i++) {
@@ -290,56 +249,6 @@ public class Inmobiliaria {
 		}
 		return acumuladorDePrecioDeDepartamentos / contador;
 
-	}
-
-	public String[] buscarPropiedadesPorRangoDePrecios(Double precioMinimo, Double precioMaximo) {
-		String[] propiedadesPorRangoDePrecios = new String[this.CANTIDAD_MAXIMA_DE_PROPIEDADES * 2];
-		Integer contadorIndependiente = 0;
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (precioMinimo <= this.casas.get(i).getPrecio() && this.casas.get(i).getPrecio() <= precioMaximo) {
-					propiedadesPorRangoDePrecios[contadorIndependiente] = this.casas.get(i).toString();
-					contadorIndependiente++;
-				}
-
-			}
-		}
-		for (int i = 0; i < this.departamentos.size(); i++) {
-			if (this.departamentos.get(i) != null) {
-				if (precioMinimo <= this.departamentos.get(i).getPrecio()
-						&& this.departamentos.get(i).getPrecio() <= precioMaximo) {
-					propiedadesPorRangoDePrecios[contadorIndependiente] = this.departamentos.get(i).toString();
-					contadorIndependiente++;
-				}
-			}
-		}
-
-		return propiedadesPorRangoDePrecios;
-	}
-
-	public String[] buscarPropiedadesPorUbicacion(String localidad) {
-		String[] propiedadesPorUbicacion = new String[this.CANTIDAD_MAXIMA_DE_PROPIEDADES * 2];
-		Integer contadorIndependiente = 0;
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (this.casas.get(i).getCiudad().equals(localidad)) {
-					propiedadesPorUbicacion[contadorIndependiente] = "Codigo: " + this.casas.get(i).getCodigo()
-							+ ", ciudad: " + this.casas.get(i).getCiudad();
-					contadorIndependiente++;
-				}
-
-			}
-		}
-		for (int i = 0; i < this.departamentos.size(); i++) {
-			if (this.departamentos.get(i) != null) {
-				if (this.departamentos.get(i).getCiudad().equals(localidad)) {
-					propiedadesPorUbicacion[contadorIndependiente] = "Codigo: " + this.departamentos.get(i).getCodigo()
-							+ ", ciudad: " + this.departamentos.get(i).getCiudad();
-					contadorIndependiente++;
-				}
-			}
-		}
-		return propiedadesPorUbicacion;
 	}
 
 	public TreeSet<Departamento> ordenarDepartamentosPorUbicacion() {

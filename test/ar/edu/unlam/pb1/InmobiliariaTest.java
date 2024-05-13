@@ -332,6 +332,33 @@ public class InmobiliariaTest {
 		inmobiliaria.agregarPropiedad(departamentoE);
 		assertNotNull(inmobiliaria.ordenarDepartamentosPorPrecio());
 	}
+	
+	@Test
+	public void agregarCasasAUnHashSet(){
+		Casa casaA = new Casa("Moron", "Cordero", 123);
+		Casa casaB = new Casa("Ciudadela", "Varela",123);
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
+		inmobiliaria.agregarPropiedad(casaA);
+		assertTrue(inmobiliaria.agregarPropiedad(casaB));
+	}
+	
+	@Test
+	public void queNoSePuedanAgregarConMismaDireccionAUnHashSet(){
+		Casa casaA = new Casa("Moron", "Cordero", 123);
+		Casa casaB = new Casa("Moron", "Cordero",123);
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
+		inmobiliaria.agregarPropiedad(casaA);
+		assertFalse(inmobiliaria.agregarPropiedad(casaB));
+	}
+	
+	@Test
+	public void queSePuedanAgregarDistintosValoresParaUnaMismaCasa(){
+		Casa casaA = new Casa("Moron", "Cordero", 123);
+		Casa casaAAgregarv
+		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
+		inmobiliaria.agregarPropiedad(casaA);
+	}
+	
 
 
 }

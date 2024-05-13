@@ -24,10 +24,16 @@ public class Propiedad {
 		this.tipoDeOperacion = tipoDeOperacion;
 	}
 	
-	public Propiedad() {
-		
-	}
 	
+	public Propiedad(Integer codigo, String calle, String ciudad, Double precio, TipoDeOperacion tipoDeOperacion) {
+		this.codigo = codigo;
+		this.calle = calle;
+		this.ciudad = ciudad;
+		this.precio = precio;
+		this.tipoDeOperacion = tipoDeOperacion;
+		this.estaDisponible = false;
+	}
+
 	public Propiedad[] buscarPorRangoDePrecio(Integer minimo, Integer maximo) {
 		
 		return null;
