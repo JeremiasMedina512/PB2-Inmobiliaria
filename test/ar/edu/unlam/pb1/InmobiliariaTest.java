@@ -69,7 +69,7 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamento = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamento = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
 
 		resultadoEsperado = inmobiliaria.agregarPropiedad(departamento);
 
@@ -84,9 +84,9 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron",500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,3);
-		
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 3);
+
 		inmobiliaria.agregarPropiedad(departamentoA);
 		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoB);
 
@@ -103,19 +103,18 @@ public class InmobiliariaTest {
 		Boolean resultadoEsperado = false;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoC = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoD = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,2);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoC = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoD = new Departamento(2, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 2);
 
 		System.out.println(departamentoA.equals(departamentoB));
 		System.out.println(departamentoB.equals(departamentoC));
 		System.out.println(departamentoB.equals(departamentoD));
-		
-		
+
 		inmobiliaria.agregarPropiedad(departamentoA);
 		inmobiliaria.agregarPropiedad(departamentoB);
-		resultadoEsperado=inmobiliaria.agregarPropiedad(departamentoC);
+		resultadoEsperado = inmobiliaria.agregarPropiedad(departamentoC);
 
 		assertFalse(resultadoEsperado);
 	}
@@ -126,6 +125,7 @@ public class InmobiliariaTest {
 		Casa casaB = null;
 		Casa casaC = null;
 		Double resultadoEsperado = 0.0;
+		Double resultadoReal = 0.0;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		casaA = new Casa(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.VENTA);
@@ -135,8 +135,9 @@ public class InmobiliariaTest {
 		inmobiliaria.agregarPropiedad(casaB);
 		inmobiliaria.agregarPropiedad(casaC);
 		resultadoEsperado = 500.0;
+		resultadoReal = inmobiliaria.calcularElPromedioDeLasCasas();
 
-		assertEquals(resultadoEsperado, inmobiliaria.calcularElPromedioDeLasCasas(), 0.01);
+		assertEquals(resultadoEsperado, resultadoReal, 0.01);
 
 	}
 
@@ -148,9 +149,9 @@ public class InmobiliariaTest {
 		Double resultadoEsperado = 0.0;
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		departamentoA = new Departamento(1, "Cordero", 123, "Moron",500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela",500.0, TipoDeOperacion.ALQUILER,1,1);
-		departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,1);
+		departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
+		departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER, 1, 1);
 		inmobiliaria.agregarPropiedad(departamentoA);
 		inmobiliaria.agregarPropiedad(departamentoB);
 		inmobiliaria.agregarPropiedad(departamentoC);
@@ -178,7 +179,7 @@ public class InmobiliariaTest {
 		assertNotNull(casasEnElRango);
 
 	}
-	
+
 	@Test
 	public void queLaBusquedaPorUbicacionMeArrojeUnArrayNoNuloSiAplicanResultados() {
 		Casa casaA = null;
@@ -281,7 +282,7 @@ public class InmobiliariaTest {
 		assertTrue(resultadoEsperado);
 
 	}
-	
+
 	@Test
 	public void queAlAgregarDosClienteYUnoRepetidoElTamañoDelArraySeaDeDos() {
 		Cliente clienteA = null, clienteB = null;
@@ -292,7 +293,7 @@ public class InmobiliariaTest {
 
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		clienteA = new Cliente(dniA, "Jeremias", "Medina");
-		clienteB = new Cliente(dniB, "Alex", "Gutierrez");		
+		clienteB = new Cliente(dniB, "Alex", "Gutierrez");
 		inmobiliaria.addCliente(clienteA);
 		inmobiliaria.addCliente(clienteB);
 		inmobiliaria.addCliente(clienteB);
@@ -300,67 +301,65 @@ public class InmobiliariaTest {
 		tamañoDelArrayReal = inmobiliaria.getClientes().size();
 		assertEquals(tamañoEsperado, tamañoDelArrayReal);
 	}
-	
+
 	@Test
-	public void queSePuedanMostrarLosDepartamentosOrdenadosPorUbicacion(){
-		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,1,2);
-		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,3);
-		Departamento departamentoD = new Departamento(4, "Cordero", 123, "Liniers",500.0, TipoDeOperacion.ALQUILER,1,4);
-		Departamento departamentoE = new Departamento(4, "Cordero", 123, "Ramos Mejia",500.0, TipoDeOperacion.ALQUILER,1,4);
+	public void queSePuedanMostrarLosDepartamentosOrdenadosPorUbicacion() {
+		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1,
+				1);
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 500.0, TipoDeOperacion.ALQUILER,
+				1, 2);
+		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER,
+				1, 3);
+		Departamento departamentoD = new Departamento(4, "Cordero", 123, "Liniers", 500.0, TipoDeOperacion.ALQUILER, 1,
+				4);
+		Departamento departamentoE = new Departamento(4, "Cordero", 123, "Ramos Mejia", 500.0, TipoDeOperacion.ALQUILER,
+				1, 4);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		inmobiliaria.agregarPropiedad(departamentoA);
 		inmobiliaria.agregarPropiedad(departamentoB);
 		inmobiliaria.agregarPropiedad(departamentoC);
-		inmobiliaria.agregarPropiedad(departamentoD);	
-		inmobiliaria.agregarPropiedad(departamentoE);		
+		inmobiliaria.agregarPropiedad(departamentoD);
+		inmobiliaria.agregarPropiedad(departamentoE);
 		assertNotNull(inmobiliaria.ordenarDepartamentosPorUbicacion());
 	}
-	
+
 	@Test
-	public void queSePuedanMostrarLosDepartamentosOrdenadosPorPrecio(){
-		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER,1,1);
-		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 10.0, TipoDeOperacion.ALQUILER,1,2);
-		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia",5000.0, TipoDeOperacion.ALQUILER,1,3);
-		Departamento departamentoD = new Departamento(4, "Cordero", 123, "Liniers",70.0, TipoDeOperacion.ALQUILER,1,4);
-		Departamento departamentoE = new Departamento(4, "Cordero", 123, "Ramos Mejia",1.0, TipoDeOperacion.ALQUILER,1,4);
+	public void queSePuedanMostrarLosDepartamentosOrdenadosPorPrecio() {
+		Departamento departamentoA = new Departamento(1, "Cordero", 123, "Moron", 500.0, TipoDeOperacion.ALQUILER, 1,
+				1);
+		Departamento departamentoB = new Departamento(2, "Cordero", 123, "Ciudadela", 10.0, TipoDeOperacion.ALQUILER, 1,
+				2);
+		Departamento departamentoC = new Departamento(3, "Cordero", 123, "Ramos Mejia", 5000.0,
+				TipoDeOperacion.ALQUILER, 1, 3);
+		Departamento departamentoD = new Departamento(4, "Cordero", 123, "Liniers", 70.0, TipoDeOperacion.ALQUILER, 1,
+				4);
+		Departamento departamentoE = new Departamento(4, "Cordero", 123, "Ramos Mejia", 1.0, TipoDeOperacion.ALQUILER,
+				1, 4);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		inmobiliaria.agregarPropiedad(departamentoA);
 		inmobiliaria.agregarPropiedad(departamentoB);
 		inmobiliaria.agregarPropiedad(departamentoC);
-		inmobiliaria.agregarPropiedad(departamentoD);	
+		inmobiliaria.agregarPropiedad(departamentoD);
 		inmobiliaria.agregarPropiedad(departamentoE);
 		assertNotNull(inmobiliaria.ordenarDepartamentosPorPrecio());
 	}
-	
+
 	@Test
-	public void agregarCasasAUnHashSet(){
+	public void agregarCasasAUnHashSet() {
 		Casa casaA = new Casa("Moron", "Cordero", 123);
-		Casa casaB = new Casa("Ciudadela", "Varela",123);
+		Casa casaB = new Casa("Ciudadela", "Varela", 123);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		inmobiliaria.agregarPropiedad(casaA);
 		assertTrue(inmobiliaria.agregarPropiedad(casaB));
 	}
-	
+
 	@Test
-	public void queNoSePuedanAgregarConMismaDireccionAUnHashSet(){
+	public void queNoSePuedanAgregarConMismaDireccionAUnHashSet() {
 		Casa casaA = new Casa("Moron", "Cordero", 123);
-		Casa casaB = new Casa("Moron", "Cordero",123);
+		Casa casaB = new Casa("Moron", "Cordero", 123);
 		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
 		inmobiliaria.agregarPropiedad(casaA);
 		assertFalse(inmobiliaria.agregarPropiedad(casaB));
 	}
-	
-	@Test
-	public void queSePuedanAgregarDistintosValoresParaUnaMismaCasa(){
-		Casa casaA = new Casa("Moron", "Cordero", 123);
-		Casa casaAAgregarv
-		Inmobiliaria inmobiliaria = new Inmobiliaria("Remax", "Varela 123", "example@gmail.com", "123456789");
-		inmobiliaria.agregarPropiedad(casaA);
-	}
-	
-
 
 }
-
-

@@ -42,30 +42,27 @@ public class Inmobiliaria {
 		this.casasUnicas = new HashSet<>();
 	}
 	
+
 	public Boolean agregarPropiedad(Casa casaNueva) {
-		return this.casasUnicas.add(casaNueva);
+		Boolean resultadoAgregacion = false;
+		if (this.casas.size() == 0) {
+			return this.casas.add(casaNueva);
+		} else if (!existePropiedad(casaNueva)) {
+			resultadoAgregacion = this.casas.add(casaNueva);
+		}
+		return resultadoAgregacion;
 	}
 
-//	public Boolean agregarPropiedad(Casa casaNueva) {
-//		Boolean resultadoAgregacion = false;
-//		if (this.casas.size() == 0) {
-//			return this.casas.add(casaNueva);
-//		} else if (existePropiedad(casaNueva)) {
-//			resultadoAgregacion = this.casas.add(casaNueva);
-//		}
-//		return resultadoAgregacion;
-//	}
-//
-//	public Boolean existePropiedad(Casa casaABuscar) {
-//		for (int i = 0; i < this.casas.size(); i++) {
-//			if (this.casas.get(i) != null) {
-//				if (this.casas.get(i).equals(casaABuscar)) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+	public Boolean existePropiedad(Casa casaABuscar) {
+		for (int i = 0; i < this.casas.size(); i++) {
+			if (this.casas.get(i) != null) {
+				if (this.casas.get(i).equals(casaABuscar)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public Boolean agregarPropiedad(Departamento nuevoDepartamento) {
 		Boolean resultadoAgregacion = false;
