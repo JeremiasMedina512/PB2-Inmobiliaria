@@ -1,5 +1,6 @@
 package ar.edu.unlam.pb1;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -13,18 +14,16 @@ public class Inmobiliaria {
 	private String email;
 	private String telefono;
 	private ArrayList<Casa> casas;
-	private HashSet<Casa> casasUnicas;
 	private ArrayList<Departamento> departamentos;
-	private TreeSet<Departamento> departamentosOrdenadosPorUbicacion;
-	private HashSet<Departamento> departamentosOrdenadosPorPrecio;
 	private ArrayList<Ph> phs;
 	private ArrayList<Campo> campos;
 	private ArrayList<Terreno> terrenos;
 	private HashSet<Cliente> clientes;
-	private Venta ventas[];
-	private final Integer CANTIDAD_MAXIMA_DE_PROPIEDADES = 100;
-	private final Integer CANTIDAD_MAXIMA_DE_CLIENTES = 3;
-	private final Integer CANTIDAD_MAXIMA_DE_VENTAS = 100;
+	private ArrayList<Propiedad> propiedades;
+//	Crear una array de ventas, alquileres y permutas.
+	private ArrayList<Venta> ventas;
+	private ArrayList<Alquiler> alquileres;
+
 
 	public Inmobiliaria(String nombre, String direccion, String email, String telefono) {
 		this.nombre = nombre;
@@ -37,18 +36,43 @@ public class Inmobiliaria {
 		this.phs = new ArrayList<>();
 		this.campos = new ArrayList<>();
 		this.terrenos = new ArrayList<>();
-		this.departamentosOrdenadosPorUbicacion = new TreeSet<>();
-		this.departamentosOrdenadosPorPrecio = new HashSet<>();
-		this.casasUnicas = new HashSet<>();
+		this.propiedades = new ArrayList<>();
+		this.ventas = new ArrayList<>();
+		this.alquileres = new ArrayList<>();
 	}
 	
+	public ArrayList<Propiedad> getPropiedades() {
+		return propiedades;
+	}
 
+	public void setPropiedades(ArrayList<Propiedad> propiedades) {
+		this.propiedades = propiedades;
+	}
+
+	public ArrayList<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(ArrayList<Venta> ventas) {
+		this.ventas = ventas;
+	}
+
+	public ArrayList<Alquiler> getAlquileres() {
+		return alquileres;
+	}
+
+	public void setAlquileres(ArrayList<Alquiler> alquileres) {
+		this.alquileres = alquileres;
+	}
+	
 	public Boolean agregarPropiedad(Casa casaNueva) {
 		Boolean resultadoAgregacion = false;
 		if (this.casas.size() == 0) {
+			this.propiedades.add(casaNueva);
 			return this.casas.add(casaNueva);
 		} else if (!existePropiedad(casaNueva)) {
 			resultadoAgregacion = this.casas.add(casaNueva);
+			this.propiedades.add(casaNueva);
 		}
 		return resultadoAgregacion;
 	}
@@ -67,8 +91,10 @@ public class Inmobiliaria {
 	public Boolean agregarPropiedad(Departamento nuevoDepartamento) {
 		Boolean resultadoAgregacion = false;
 		if (this.departamentos.size() == 0) {
+			this.propiedades.add(nuevoDepartamento);
 			return this.departamentos.add(nuevoDepartamento);
 		} else if (!existePropiedad(nuevoDepartamento)) {
+			this.propiedades.add(nuevoDepartamento);
 			resultadoAgregacion = this.departamentos.add(nuevoDepartamento);
 
 		}
@@ -88,11 +114,13 @@ public class Inmobiliaria {
 
 	public Boolean agregarPropiedad(Ph nuevoPh) {
 		if (this.phs.size() == 0) {
+			this.propiedades.add(nuevoPh);
 			this.phs.add(nuevoPh);
 			return true;
 		} else if (!existePropiedad(nuevoPh)) {
 			for (int i = 0; i < phs.size(); i++) {
 				if (this.phs.get(i) == null) {
+					this.propiedades.add(nuevoPh);
 					return this.phs.add(nuevoPh);
 				}
 			}
@@ -113,10 +141,12 @@ public class Inmobiliaria {
 
 	public Boolean agregarPropiedad(Campo nuevoCampo) {
 		if (this.campos.size() == 0) {
+			this.propiedades.add(nuevoCampo);
 			return this.campos.add(nuevoCampo);
 		} else if (!existePropiedad(nuevoCampo)) {
 			for (int i = 0; i < campos.size(); i++) {
 				if (this.campos.get(i) == null) {
+					this.propiedades.add(nuevoCampo);
 					return this.campos.add(nuevoCampo);
 				}
 			}
@@ -125,7 +155,7 @@ public class Inmobiliaria {
 	}
 
 	public Boolean existePropiedad(Campo campoABuscar) {
-		for (int i = 0; i < this.phs.size(); i++) {
+		for (int i = 0; i < this.campos.size(); i++) {
 			if (this.campos.get(i) != null) {
 				if (this.campos.get(i).equals(campoABuscar)) {
 					return true;
@@ -137,10 +167,12 @@ public class Inmobiliaria {
 
 	public Boolean agregarPropiedad(Terreno nuevoTerreno) {
 		if (this.terrenos.size() == 0) {
+			this.propiedades.add(nuevoTerreno);
 			return this.terrenos.add(nuevoTerreno);
 		} else if (!existePropiedad(nuevoTerreno)) {
 			for (int i = 0; i < terrenos.size(); i++) {
 				if (this.terrenos.get(i) == null) {
+					this.propiedades.add(nuevoTerreno);
 					return this.terrenos.add(nuevoTerreno);
 				}
 			}
@@ -159,18 +191,6 @@ public class Inmobiliaria {
 		return false;
 	}
 
-	public Boolean venderCasa(Casa casaAVender, Cliente clienteAlQueVender) {
-		if (buscarCasa(casaAVender.getCodigo()) && buscarClientePorDni(clienteAlQueVender.getDni())) {
-			for (int i = 0; i < this.ventas.length; i++) {
-				if (this.ventas[i] == null) {
-					this.ventas[i] = new Venta(clienteAlQueVender, casaAVender);
-					this.ventas[i].getCasa().setEstaDisponible(false);
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
 	public Boolean buscarCasa(Integer codigoDeCasa) {
 		for (int i = 0; i < this.casas.size(); i++) {
@@ -196,23 +216,11 @@ public class Inmobiliaria {
 	}
 
 	public Boolean modificarPropiedadExistente(Integer codigo, Double nuevoPrecio) {
+		
 		Boolean valorRetorno = false;
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (this.casas.get(i).getCodigo().equals(codigo)) {
-					this.casas.get(i).setPrecio(nuevoPrecio);
-					valorRetorno = true;
-					i = this.casas.size();
-				}
-			}
-		}
-		for (int i = 0; i < this.departamentos.size(); i++) {
-			if (this.departamentos.get(i) != null) {
-				if (this.departamentos.get(i).getCodigo().equals(codigo)) {
-					this.departamentos.get(i).setPrecio(nuevoPrecio);
-					valorRetorno = true;
-					i = this.departamentos.size();
-				}
+		for(int i = 0; i < this.propiedades.size(); i++) {
+			if (this.propiedades.get(i).getCodigo().equals(codigo)) {
+				this.propiedades.get(i).setPrecio(nuevoPrecio);
 			}
 		}
 		return valorRetorno;
@@ -249,42 +257,69 @@ public class Inmobiliaria {
 	}
 
 	public TreeSet<Departamento> ordenarDepartamentosPorUbicacion() {
-		this.departamentosOrdenadosPorUbicacion.addAll(this.departamentos);
+		TreeSet<Departamento> departamentosOrdenadosPorUbicacion = new TreeSet<>();
+		departamentosOrdenadosPorUbicacion.addAll(this.departamentos);
 		for (Departamento i : departamentosOrdenadosPorUbicacion) {
 			System.out.println(i.getCodigo() + ", " + i.getCiudad() + ", " + i.getCalle() + " " + i.getNumero());
 		}
-		return this.departamentosOrdenadosPorUbicacion;
+		return departamentosOrdenadosPorUbicacion;
 	}
 
-	public ArrayList<Casa> buscarPorRangoDePreciosDeCasas(Double minimo, Double maximo) {
-		ArrayList<Casa> casasEnElRango = new ArrayList<>();
+	public ArrayList<Propiedad> buscarPorRangoDePreciosDePropiedades(Double minimo, Double maximo) {
+		ArrayList<Propiedad> propiedadesEnElRango = new ArrayList<>();
 		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (this.casas.get(i).getPrecio() <= minimo && maximo <= this.casas.get(i).getPrecio()) {
-					casasEnElRango.add(this.casas.get(i));
+			if (this.propiedades.get(i) != null) {
+				if (this.propiedades.get(i).getPrecio() <= maximo &&
+						this.propiedades.get(i).getPrecio() >= minimo) {
+					propiedadesEnElRango.add(this.propiedades.get(i));
 				}
 			}
 
 		}
-		for (Casa i : casasEnElRango) {
-			if (i != null) {
-				System.out.println(i.getCodigo() + ", " + i.getCiudad() + ", " + i.getCalle() + ", " + i.getNumero());
-			}
+		for (Propiedad i : propiedadesEnElRango) {
+				System.out.println(i);
+			
 		}
-		return casasEnElRango;
+		return propiedadesEnElRango;
 
 	}
 
-	public Boolean permutarCasaEntreClientes(Cliente clienteA, Cliente clienteB, Casa casaDelClienteA,
-			Casa casaDelClienteB) {
-		if (clienteA.getPoseePropiedadParaPermutar() && clienteB.getPoseePropiedadParaPermutar()) {
-			clienteA.getCasasCompradas().remove(casaDelClienteA);
-			clienteB.getCasasCompradas().remove(casaDelClienteB);
-			clienteA.comprarCasa(casaDelClienteB);
-			clienteB.comprarCasa(casaDelClienteA);
+	public Boolean permutarCasaEntreClientes(Cliente clienteA, Cliente clienteB, Propiedad casaDelClienteA,
+			Propiedad casaDelClienteB){
+		Integer ubicacionClienteA = 0;
+		Integer ubicacionClienteB =0;
+		Propiedad propiedadClienteA = null;
+		Propiedad propiedadClienteB =null;
+		ubicacionClienteA = buscarClienteEnVentas(clienteA);
+		ubicacionClienteB= buscarClienteEnVentas(clienteB);
+		if(ubicacionClienteA != -1 && ubicacionClienteB!= -1) {
+			propiedadClienteA = this.ventas.get(ubicacionClienteA).getPropiedad();
+			propiedadClienteB = this.ventas.get(ubicacionClienteB).getPropiedad();
+			this.ventas.get(ubicacionClienteA).setPropiedad(propiedadClienteB);
+			this.ventas.get(ubicacionClienteB).setPropiedad(propiedadClienteA);
 			return true;
 		}
+
 		return false;
+	
+	}
+	
+	private Integer buscarClienteEnVentas(Cliente cliente) {
+		for(int i = 0; i< this.ventas.size();i++) {
+			if(this.ventas.get(i).getCliente().equals(cliente)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private Integer buscarPropiedadEnVentas(Propiedad propiedad) {
+		for(int i = 0; i< this.ventas.size();i++) {
+			if(this.ventas.get(i).getPropiedad().equals(propiedad)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	public String getNombre() {
@@ -317,18 +352,6 @@ public class Inmobiliaria {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-
-	public Integer getCANTIDAD_MAXIMA_DE_CLIENTES() {
-		return CANTIDAD_MAXIMA_DE_CLIENTES;
-	}
-
-	public Integer getCANTIDAD_MAXIMA_DE_PROPIEDADES() {
-		return CANTIDAD_MAXIMA_DE_PROPIEDADES;
-	}
-
-	public Integer getCANTIDAD_MAXIMA_DE_VENTAS() {
-		return CANTIDAD_MAXIMA_DE_VENTAS;
 	}
 
 	public ArrayList<Casa> getCasas() {
@@ -379,51 +402,105 @@ public class Inmobiliaria {
 		this.clientes = clientes;
 	}
 
-	public Venta[] getVentas() {
-		return ventas;
-	}
-
-	public void setVentas(Venta[] ventas) {
-		this.ventas = ventas;
-	}
-
-	public ArrayList<Casa> buscarPorUbicacionDeCasas(String ubicacionABuscar) {
-		ArrayList<Casa> casasEnUbicacion = new ArrayList<>();
-		for (int i = 0; i < this.casas.size(); i++) {
-			if (this.casas.get(i) != null) {
-				if (this.casas.get(i).getCiudad().equals(ubicacionABuscar)) {
-					casasEnUbicacion.add(this.casas.get(i));
+	public ArrayList<Propiedad> buscarPorUbicacionDePropiedades(String ubicacionABuscar) {
+		ArrayList<Propiedad> propiedadesEnUbcacion = new ArrayList<>();
+		for (int i = 0; i < this.propiedades.size(); i++) {
+			if (this.propiedades.get(i) != null) {
+				if (this.propiedades.get(i).getCiudad().equals(ubicacionABuscar)) {
+					propiedadesEnUbcacion.add(this.propiedades.get(i));
 				}
 			}
 
 		}
-		for (Casa i : casasEnUbicacion) {
+		for (Propiedad i : propiedadesEnUbcacion) {
 			if (i != null) {
 				System.out.println(i.getCodigo() + ", " + i.getCiudad() + ", " + i.getCalle() + ", " + i.getNumero());
 			}
 		}
-		return casasEnUbicacion;
+		return propiedadesEnUbcacion;
 
 	}
 
-	public ArrayList<Departamento> ordenarDepartamentosPorPrecio() {
-		ArrayList<Departamento> departamentosOrdenadosPorPrecio = new ArrayList<>();
-		departamentosOrdenadosPorPrecio.addAll(this.departamentos);
-		for (int i = 0; i < departamentosOrdenadosPorPrecio.size(); i++) {
-			for (int j = 0; j < departamentosOrdenadosPorPrecio.size() - 1; j++) {
-				if (departamentosOrdenadosPorPrecio.get(j).getPrecio() > departamentosOrdenadosPorPrecio.get(j + 1)
+	public ArrayList<Propiedad> ordenarDepartamentosPorPrecio() {
+		ArrayList<Propiedad> propiedadesOrdenadosPorPrecio = new ArrayList<>();
+		propiedadesOrdenadosPorPrecio.addAll(this.propiedades);
+		for (int i = 0; i < propiedadesOrdenadosPorPrecio.size(); i++) {
+			for (int j = 0; j < propiedadesOrdenadosPorPrecio.size() - 1; j++) {
+				if (propiedadesOrdenadosPorPrecio.get(j).getPrecio() > propiedadesOrdenadosPorPrecio.get(j + 1)
 						.getPrecio()) {
-					Departamento temporalMayor = departamentosOrdenadosPorPrecio.get(j);
-					departamentosOrdenadosPorPrecio.set(j, departamentosOrdenadosPorPrecio.get(j + 1));
-					departamentosOrdenadosPorPrecio.set(j + 1, temporalMayor);
+					Propiedad temporalMayor = propiedadesOrdenadosPorPrecio.get(j);
+					propiedadesOrdenadosPorPrecio.set(j, propiedadesOrdenadosPorPrecio.get(j + 1));
+					propiedadesOrdenadosPorPrecio.set(j + 1, temporalMayor);
 				}
 			}
 		}
-		for(Departamento i: departamentosOrdenadosPorPrecio) {
+		for(Propiedad i: propiedadesOrdenadosPorPrecio) {
 			System.out.println(i.getCodigo() + ", " + i.getPrecio());
 		}
-		return departamentosOrdenadosPorPrecio;
+		return propiedadesOrdenadosPorPrecio;
 
 	}
+
+	public ArrayList<Propiedad> buscarPropiedadesEnVenta() {
+		ArrayList<Propiedad> propiedadesEnVenta = new ArrayList<>();
+		
+		if(this.propiedades.size() != 0) {
+			for(int i =0; i < this.propiedades.size()-1;i++) {
+				if(this.propiedades.get(i).getTipoDeOperacion().equals(TipoDeOperacion.VENTA)) {
+					propiedadesEnVenta.add(this.propiedades.get(i));
+				}
+			}
+		}
+		if(propiedadesEnVenta.size() == 0) {
+			return null;
+		}
+		
+		for(Propiedad i: propiedadesEnVenta) {
+			System.out.println(i);
+		}
+		
+		return propiedadesEnVenta;
+	}
+	
+	public Boolean hacerVentaDePropiedad(Cliente cliente, Propiedad propiedad) {
+		Boolean resultado = false;
+		if(buscarClientePorDni(cliente.getDni())) {
+			for(int i = 0; i < this.propiedades.size(); i++) {
+				if(this.propiedades.get(i).equals(propiedad)) {
+					if (this.propiedades.get(i).getTipoDeOperacion().equals(TipoDeOperacion.VENTA) && this.propiedades.get(i).getEstaDisponible().equals(true)) {
+						Venta venta = new Venta(cliente, propiedad);
+						this.propiedades.get(i).setEstaDisponible(false);
+						this.ventas.add(venta);
+						resultado = true;
+						i = this.propiedades.size();
+					}
+				}
+			}
+		}else {
+			resultado = false;
+		}
+		return resultado;
+	}
+	
+	public Boolean hacerAlquilerDePropiedad(Cliente cliente, Propiedad propiedad, Date fechaLimite) {
+		Boolean resultado = false;
+		if(buscarClientePorDni(cliente.getDni())) {
+			for(int i = 0; i < this.propiedades.size(); i++) {
+				if(this.propiedades.get(i).equals(propiedad)) {
+					if (this.propiedades.get(i).getTipoDeOperacion().equals(TipoDeOperacion.ALQUILER) && this.propiedades.get(i).getEstaDisponible().equals(true)) {
+						Alquiler alquiler = new Alquiler(cliente, propiedad, fechaLimite);			
+						this.propiedades.get(i).setEstaDisponible(false);
+						this.alquileres.add(alquiler);
+						resultado = true;
+						i = this.propiedades.size();
+					}
+				}
+			}
+		}else {
+			resultado = false;
+		}
+		return resultado;
+	}
+
 
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlam.pb1;
 
 import java.nio.file.spi.FileSystemProvider;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InterfazInmobiliaria {
@@ -22,14 +23,14 @@ public class InterfazInmobiliaria {
 			System.out.println("6.a Buscar propiedades ordenados por rango de precio");
 			System.out.println("6.b Buscar propiedades ordenados por ubicacion");
 			System.out.println("7. Realizar la venta de una propiedad");
-			System.out.println("8. Realizar la venta de una propiedad");
+			System.out.println("8. Realizar el alquiler de una propiedad");
 			System.out.println("9. Salir");
 
 			opcionSeleccionada = teclado.nextInt();
 
 			switch (OpcionDeMenu.values()[opcionSeleccionada - 1]) {
 
-			case AGREGAR_PROPIEDAD: // AGREGAR PROPIEDAD
+			case AGREGAR_PROPIEDAD: 
 //				agregarPropiedad(teclado, inmobiliaria);
 				System.out.println(agregarPropiedad(teclado, inmobiliaria));
 				break;
@@ -45,6 +46,10 @@ public class InterfazInmobiliaria {
 				obtenerListadoDePropiedadesPorPrecio(inmobiliaria);
 				break;
 			case OBTENER_LISTADO_POR_UBICACION:
+				obtenerListadoDePropiedadesPorUbicacion(inmobiliaria);
+				break;
+			case OBTENER_LISTADO_POR_RANGO_DE_PRECIO:
+				obtenerListadoPorRangoDePrecio(teclado, inmobiliaria);
 				break;
 			case REALIZAR_VENTA:
 //				System.out.println(realizarVenta(teclado, inmobiliaria));
@@ -52,6 +57,7 @@ public class InterfazInmobiliaria {
 				break;
 			case REALIZAR_ALQUILER:
 //				System.out.println(realizarAlquiler(teclado, inmobiliaria));
+				realizarAlquiler(teclado, inmobiliaria);
 				break;
 			case SALIR:
 				break;
@@ -59,6 +65,26 @@ public class InterfazInmobiliaria {
 
 		} while (opcionSeleccionada != 9);
 
+	}
+
+	private static void realizarAlquiler(Scanner teclado, Inmobiliaria inmobiliaria) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void obtenerListadoPorRangoDePrecio(Scanner teclado,Inmobiliaria inmobiliaria) {
+		separador();
+		Double minimo, maximo;
+		System.out.println("Ingrese minimo");
+		minimo = teclado.nextDouble();
+		System.out.println("Ingrese maxismo");
+		maximo = teclado.nextDouble();
+		inmobiliaria.buscarPorRangoDePreciosDePropiedades(minimo, maximo);
+	}
+
+	private static void obtenerListadoDePropiedadesPorUbicacion(Inmobiliaria inmobiliaria) {
+		separador();
+		inmobiliaria.ordenarDepartamentosPorUbicacion();		
 	}
 
 	private static Boolean realizarVenta(Scanner teclado, Inmobiliaria inmobiliaria) {
@@ -77,26 +103,26 @@ public class InterfazInmobiliaria {
 		opcionDeBusqueda = teclado.nextInt();
 		switch (BusquedaDePropiedades.values()[opcionDeBusqueda - 1]) {
 		case BUSCAR_POR_PRECIO:
-			String[] propiedadesPorPrecio;
+			ArrayList<Propiedad> propiedadesPorPrecio;
 			Double precioMinimo;
 			Double precioMaximo;
 			System.out.println("Ingrese precio minimo:");
 			precioMinimo = teclado.nextDouble();
 			System.out.println("Ingrese precio maximo:");
 			precioMaximo = teclado.nextDouble();
-			propiedadesPorPrecio = inmobiliaria.buscarPropiedadesPorRangoDePrecios(precioMinimo, precioMaximo);
-			for (String i : propiedadesPorPrecio) {
+			propiedadesPorPrecio = inmobiliaria.buscarPorRangoDePreciosDePropiedades(precioMinimo, precioMaximo);
+			for (Propiedad i : propiedadesPorPrecio) {
 				System.out.println(i);
 			}
 			break;
 		case BUSCAR_POR_UBICACION:
-			String[] propiedadesPorLocalidad;
+			ArrayList<Propiedad> propiedadesPorLocalidad = new ArrayList<>();
 			String localidad;
 			System.out.println("Ingrese localiad");
 			localidad = teclado.next();
-			propiedadesPorLocalidad = inmobiliaria.buscarPropiedadesPorUbicacion(localidad);
-			for (int i = 0; i < propiedadesPorLocalidad.length; i++) {
-				if (propiedadesPorLocalidad[i] != null) {
+			propiedadesPorLocalidad = inmobiliaria.buscarPorUbicacionDePropiedades(localidad);
+			for (int i = 0; i < propiedadesPorLocalidad.size(); i++) {
+				if (propiedadesPorLocalidad.get(i) != null) {
 					System.out.println(i);
 				}
 			}
@@ -159,20 +185,22 @@ public class InterfazInmobiliaria {
 			piso = teclado.nextInt();
 			System.out.println("Ingrese departamento");
 			departamento = teclado.nextInt();
-			nuevoDepartamento = new Departamento(codigo, calle, numero, ciudad, piso, departamento, precio, tipoDeOperacion);
-			resultadoOperacion = inmobiliaria.addDepartamento(nuevoDepartamento);
+			nuevoDepartamento = new Departamento(codigo, calle, numero, ciudad, precio, tipoDeOperacion, departamento, piso);
+			resultadoOperacion = inmobiliaria.agregarPropiedad(nuevoDepartamento);
 			break;
 		case 3:
 			nuevoPh = new Ph(codigo, calle, numero, ciudad, precio, tipoDeOperacion);
-			resultadoOperacion = inmobiliaria.addPh(nuevoPh);
+			resultadoOperacion = inmobiliaria.agregarPropiedad(nuevoPh);
 			break;
 		case 4:
-			nuevoCampo = new Campo(codigo, calle, numero, ciudad, precio, tipoDeOperacion);
-			resultadoOperacion = inmobiliaria.addCampo(nuevoCampo);
+			System.out.println("Ingrese mentros cuadrados");
+			Double metrosCuadrados = teclado.nextDouble();
+			nuevoCampo = new Campo(codigo, calle, numero, ciudad, precio, tipoDeOperacion, metrosCuadrados);
+			resultadoOperacion = inmobiliaria.agregarPropiedad(nuevoCampo);
 			break;
 		case 5:
 			nuevoTerreno = new Terreno(codigo, calle, numero, ciudad, precio, tipoDeOperacion);
-			resultadoOperacion = inmobiliaria.addTerreno(nuevoTerreno);
+			resultadoOperacion = inmobiliaria.agregarPropiedad(nuevoTerreno);
 			break;
 		}
 		return resultadoOperacion;
@@ -206,7 +234,7 @@ public class InterfazInmobiliaria {
 
 	public static void obtenerListadoDePropiedadesPorPrecio(Inmobiliaria inmobiliaria) {
 		separador();
-		inmobiliaria.obtenerListadoDePropiedadesPorPrecio();
+		inmobiliaria.ordenarDepartamentosPorPrecio();
 	}
 
 

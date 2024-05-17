@@ -16,26 +16,29 @@ public class Departamento extends Propiedad implements Comparable<Object> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(super.codigo, super.ciudad, super.calle, super.numero, this.departamento, this.piso);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(departamento, piso);
+		return result;
 	}
+
+
+
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Departamento other = (Departamento) obj;
-		return Objects.equals(getCodigo(), other.getCodigo()) && Objects.equals(getCiudad(), other.getCiudad())
-				&& Objects.equals(getCalle(), other.getCalle()) && Objects.equals(getNumero(), other.getNumero());
+		return Objects.equals(departamento, other.departamento) && Objects.equals(piso, other.piso);
 	}
 
-//	@Override
-//	public int compareTo(Departamento otroDepartamento) {
-//		return this.getCiudad().compareTo(otroDepartamento.getCiudad());
-//	}
+
+
 
 	@Override
 	public int compareTo(Object otroDepartamento) {

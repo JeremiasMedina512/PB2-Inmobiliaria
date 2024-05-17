@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Propiedad {
 	
+	protected static Integer codigoDePropiedad=0;
 	protected Integer codigo;
 	protected String calle;
 	protected Integer numero;
@@ -22,6 +23,7 @@ public class Propiedad {
 		this.precio = precio;
 		this.estaDisponible = true;
 		this.tipoDeOperacion = tipoDeOperacion;
+		this.codigo = codigoDePropiedad++;
 	}
 	
 	
@@ -34,17 +36,7 @@ public class Propiedad {
 		this.estaDisponible = false;
 	}
 
-	public Propiedad[] buscarPorRangoDePrecio(Integer minimo, Integer maximo) {
-		
-		return null;
-	}
-	
-	public Double calcularPromedio(ArrayList<Casa> casa) {
-	
-		return null;
-	}
-
-	public Double calcularPromedio(Departamento departamento) {
+	public Double calcularPromedio(ArrayList<Propiedad> propiedades) {
 		return 0.0;
 	}
 	
@@ -121,6 +113,15 @@ public class Propiedad {
 		return Objects.equals(calle, other.calle) && Objects.equals(ciudad, other.ciudad)
 				&& Objects.equals(numero, other.numero);
 	}
+
+
+	@Override
+	public String toString() {
+		return "Propiedad [codigo=" + codigo + ", calle=" + calle + ", numero=" + numero + ", ciudad=" + ciudad
+				+ ", precio=" + precio + ", tipoDeOperacion=" + tipoDeOperacion + "]";
+	}
+	
+	
 	
 	
 	
